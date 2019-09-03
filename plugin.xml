@@ -58,6 +58,7 @@
             </feature>
         </config-file>
 
+	    <!--
         <config-file target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
             <string>This app would like to scan for iBeacons even when in the background.</string>
         </config-file>
@@ -70,6 +71,27 @@
         <config-file target="*-Info.plist" parent="NSLocationAlwaysAndWhenInUseUsageDescription">
             <string>This app would like to scan for iBeacons both while in use and while in the background.</string>
         </config-file>
+-->
+	    
+	    <config-file target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
+            <string>This app would like to scan for iBeacons even when in the background, to detect the door and open it automatically.</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
+            <string>This app would like to scan for iBeacons while it is in use, to detect the door and open it automatically.</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="NSBluetoothPeripheralUsageDescription">
+            <string>This app would like to scan for iBeacons, to detect the door and open it automatically.</string>
+        </config-file>
+	
+	    <config-file target="*-Info.plist" parent="NSLocationUsageDescription">
+            <string>This application requires access to your location to monitor Geofences and Beacons, to detect the door and open it automatically.</string>
+        </config-file>	
+	    
+        <config-file target="*-Info.plist" parent="NSLocationAlwaysAndWhenInUseUsageDescription">
+            <string>This app would like to scan for iBeacons both while in use and while in the background, to detect the door and open it automatically.</string>
+        </config-file>
+	    
+	    
 
         <header-file src="src/ios/CDVLocationManager.h"/>
         <source-file src="src/ios/CDVLocationManager.m"/>
