@@ -410,3 +410,4 @@ Executing the test runner will do the following:
 * Open Safari
 * Go to the dev tools window
 * Paste the code from the examples into the javascript console, it should run without any errors.
+* https://medium.com/posts-from-emmerge/ios-push-notification-background-fetch-demystified-7090358bb66e
