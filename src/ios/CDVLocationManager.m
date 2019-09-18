@@ -201,6 +201,8 @@
         NSDictionary* dictOfBeacon = [self mapOfBeacon:beacon];
         [beaconsMapsArray addObject:dictOfBeacon];
     }
+ 
+    UIApplicationState state = [application applicationState];
     
     [self.queue addOperationWithBlock:^{
         
@@ -211,7 +213,10 @@
             NSMutableDictionary* dict = [[NSMutableDictionary alloc]init];
             [dict setObject:[self jsCallbackNameForSelector :_cmd] forKey:@"eventType"];
             [dict setObject:[self mapOfRegion:region] forKey:@"region"];
-            [dict setObject:beaconsMapsArray forKey:@"beacons"];
+         
+            if (state == UIApplicationStateActive)) {
+              [dict setObject:beaconsMapsArray forKey:@"beacons"];
+            }
             
             CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict];
             [pluginResult setKeepCallbackAsBool:YES];
