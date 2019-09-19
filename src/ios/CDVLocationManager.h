@@ -21,6 +21,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
+#import <UIKit/UIKit.h>
 
 #import "LMLogger.h"
 
