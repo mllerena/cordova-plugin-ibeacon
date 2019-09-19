@@ -202,7 +202,7 @@
         [beaconsMapsArray addObject:dictOfBeacon];
     }
  
-    UIApplicationState state = [application applicationState];
+    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
     
     [self.queue addOperationWithBlock:^{
         
