@@ -1455,7 +1455,8 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
     //////// Async Task Handling ////////////////////////////////
 
     private void _handleCallSafely(CallbackContext callbackContext, final ILocationManagerCommand task) {
-        _handleCallSafely(callbackContext, task, true);
+        //_handleCallSafely(callbackContext, task, true);
+           _handleCallSafely(callbackContext, task, false);
     }
 
     private void _handleCallSafely(final CallbackContext callbackContext, final ILocationManagerCommand task, boolean runInBackground) {
