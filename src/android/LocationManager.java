@@ -76,6 +76,8 @@ import java.util.Collection;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import java.util.List;
+
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 public class LocationManager extends CordovaPlugin implements BeaconConsumer {
 
@@ -124,7 +126,7 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
 
             return isInBackground;
         }*/
-       
+       /*
      private boolean isAppOnForeground() { 
 		    ActivityManager aManager=((ActivityManager)getSystemService(Context.ACTIVITY_SERVICE));
 	        List<RunningAppProcessInfo> appProcesses = aManager.getRunningAppProcesses(); 
@@ -141,7 +143,34 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
 	            } 
 	        } 
 	        return false; 
-	 }  
+	 } */
+	
+	
+    private boolean applicationIsRunning(Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
+            List<RunningAppProcessInfo> processInfos = activityManager.getRunningAppProcesses();
+            for (RunningAppProcessInfo processInfo : processInfos) {
+                if (processInfo.processName.equals(context.getApplicationContext().getPackageName())) {
+                    if (processInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                        for (String d: processInfo.pkgList) {
+                            Log.v("ReactSystemNotification", "NotificationEventReceiver: ok: " + d);
+                            return true;
+                        }
+                    }
+                }
+            }
+        } else {
+            List<ActivityManager.RunningTaskInfo> taskInfo = activityManager.getRunningTasks(1);
+            ComponentName componentInfo = taskInfo.get(0).topActivity;
+            if (componentInfo.getPackageName().equals(context.getPackageName())) {
+                return true;
+            }
+        }
+
+        return false;
+    }	
 
     /**
      * Sets the context of the Command. This can then be used to do things like
@@ -603,7 +632,7 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
                             data.put("eventType", "didRangeBeaconsInRegion");
                             data.put("region", mapOfRegion(region));
                                
-                            if(isAppOnForeground()){
+                            if(applicationIsRunning(getApplicationContext())){
                                 data.put("beacons", beaconData);
                             }
                             
