@@ -23,6 +23,10 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+
+import android.app.ActivityManager:
+import android.app.ActivityManager.RunningAppProcessInfo;
+
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
@@ -108,6 +112,18 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
      */
     public LocationManager() {
     }
+       
+       
+    private bool isApplicationInTheBackground()
+        {
+            bool isInBackground;
+
+            RunningAppProcessInfo myProcess = new RunningAppProcessInfo();
+            ActivityManager.GetMyMemoryState(myProcess);
+            isInBackground = myProcess.Importance != Android.App.Importance.Foreground;
+
+            return isInBackground;
+        }
 
     /**
      * Sets the context of the Command. This can then be used to do things like
@@ -568,8 +584,11 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
                             }
                             data.put("eventType", "didRangeBeaconsInRegion");
                             data.put("region", mapOfRegion(region));
-                            data.put("beacons", beaconData);
-
+                               
+                            if(!isApplicationInTheBackground()){
+                                data.put("beacons", beaconData);
+                            }
+                            
                             debugLog("didRangeBeacons: " + data.toString());
 
                             //send and keep reference to callback
