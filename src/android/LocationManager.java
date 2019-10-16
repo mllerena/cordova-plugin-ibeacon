@@ -26,6 +26,7 @@ import android.app.AlertDialog;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
+import android.content.ComponentName;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
