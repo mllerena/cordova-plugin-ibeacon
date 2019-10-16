@@ -113,7 +113,7 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
     public LocationManager() {
     }
        
-       
+       /*
     private boolean isApplicationInTheBackground()
         {
             boolean isInBackground;
@@ -123,7 +123,25 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
             isInBackground = myProcess.Importance != Android.App.Importance.Foreground;
 
             return isInBackground;
-        }
+        }*/
+       
+     private boolean isAppOnForeground() { 
+		    ActivityManager aManager=((ActivityManager)getSystemService(Context.ACTIVITY_SERVICE));
+	        List<RunningAppProcessInfo> appProcesses = aManager.getRunningAppProcesses(); 
+	        if (appProcesses == null) return false; 
+	        for (RunningAppProcessInfo appProcess : appProcesses) { 
+	            if (appProcess.processName.equals(getPackageName())){
+	            	    Log.e("StopListennerActivity", "appProcess.importance="+appProcess.importance);
+	            	   // inRunningTasks(aManager);
+	            	    if(appProcess.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) { 
+	            			return true; 
+	            		}else{
+	            			return false;
+	            		}
+	            } 
+	        } 
+	        return false; 
+	 }  
 
     /**
      * Sets the context of the Command. This can then be used to do things like
@@ -585,7 +603,7 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
                             data.put("eventType", "didRangeBeaconsInRegion");
                             data.put("region", mapOfRegion(region));
                                
-                            if(!isApplicationInTheBackground()){
+                            if(isAppOnForeground()){
                                 data.put("beacons", beaconData);
                             }
                             
