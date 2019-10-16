@@ -24,7 +24,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 
-import android.app.ActivityManager:
+import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 
 import android.bluetooth.BluetoothAdapter;
