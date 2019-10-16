@@ -114,9 +114,9 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
     }
        
        
-    private bool isApplicationInTheBackground()
+    private boolean isApplicationInTheBackground()
         {
-            bool isInBackground;
+            boolean isInBackground;
 
             RunningAppProcessInfo myProcess = new RunningAppProcessInfo();
             ActivityManager.GetMyMemoryState(myProcess);
