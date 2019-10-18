@@ -214,9 +214,14 @@
             [dict setObject:[self jsCallbackNameForSelector :_cmd] forKey:@"eventType"];
             [dict setObject:[self mapOfRegion:region] forKey:@"region"];
          
+            /*
             if (state == UIApplicationStateActive) {
               [dict setObject:beaconsMapsArray forKey:@"beacons"];
             }
+            */
+         
+            [dict setObject:beaconsMapsArray forKey:@"beacons"];
+
             
             CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict];
             [pluginResult setKeepCallbackAsBool:YES];
