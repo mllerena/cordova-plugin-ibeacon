@@ -155,10 +155,10 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
             for (RunningAppProcessInfo processInfo : processInfos) {
                 if (processInfo.processName.equals(context.getApplicationContext().getPackageName())) {
                     if (processInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                        for (String d: processInfo.pkgList) {
-                            Log.v("ReactSystemNotification", "NotificationEventReceiver: ok: " + d);
-                            return true;
-                        }
+                        //for (String d: processInfo.pkgList) {
+                         Log.v("ReactSystemNotification", "NotificationEventReceiver: ok: " + d);
+                         return true;
+                        //}
                     }
                 }
             }
@@ -633,12 +633,12 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
                             data.put("eventType", "didRangeBeaconsInRegion");
                             data.put("region", mapOfRegion(region));
                                
-				/*
+				
                             if(applicationIsRunning(getApplicationContext())){
                                 data.put("beacons", beaconData);
-                            }*/
+                            }
 				
-			    data.put("beacons", beaconData);
+			    //data.put("beacons", beaconData);
                             
                             debugLog("didRangeBeacons: " + data.toString());
 
