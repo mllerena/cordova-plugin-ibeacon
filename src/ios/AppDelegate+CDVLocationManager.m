@@ -42,8 +42,48 @@
         } else {
             method_exchangeImplementations(originalMethod, swizzledMethod);
         }
+     
+        swizzleMethod_LocationMonitor([self class], @selector(applicationWillEnterForeground:), @selector(swizzled_applicationWillEnterForeground:));
+     swizzleMethod_LocationMonitor([self class], @selector(applicationDidEnterBackground:), @selector(swizzled_applicationDidEnterBackground:));
         
     });
+}
+
+#pragma mark - Method Swizzling
+
+void swizzleMethod_LocationMonitor(Class class, SEL originalSelector, SEL swizzledSelector) {
+    Method originalMethod = class_getInstanceMethod(class, originalSelector);
+    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+
+    BOOL didAddMethod = class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));
+
+    if (didAddMethod) {
+        class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+    }
+    else {
+        method_exchangeImplementations(originalMethod, swizzledMethod);
+    }
+}
+
+- (void)swizzled_applicationWillEnterForeground:(UIApplication *)application {
+    NSLog(@"LocationMonitor WillEnterForeground");
+ 
+   NSUserDefaults *defaults = [self getUserDefault];
+			[defaults setObject: @"Foreground" forKey:@"true"];
+			BOOL success = [defaults synchronize];
+   
+}
+
+- (void)swizzled_applicationDidEnterBackground:(UIApplication *)application {
+    NSLog(@"LocationMonitor DidEnterBackground");
+ 
+   NSUserDefaults *defaults = [self getUserDefault];
+			[defaults setObject: @"Foreground" forKey:@"false"];
+			BOOL success = [defaults synchronize];
+ 
+    [self requestMoreBackgroundExecutionTime];
+
+    
 }
 
 - (BOOL) xxx_application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
