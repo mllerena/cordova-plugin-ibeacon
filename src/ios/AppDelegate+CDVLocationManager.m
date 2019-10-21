@@ -68,7 +68,7 @@ void swizzleMethod_LocationMonitor(Class class, SEL originalSelector, SEL swizzl
 - (void)swizzled_applicationWillEnterForeground:(UIApplication *)application {
     NSLog(@"LocationMonitor WillEnterForeground");
  
-   NSUserDefaults *defaults = [self getUserDefault];
+   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 			[defaults setObject: @"Foreground" forKey:@"true"];
 			BOOL success = [defaults synchronize];
    
@@ -77,11 +77,11 @@ void swizzleMethod_LocationMonitor(Class class, SEL originalSelector, SEL swizzl
 - (void)swizzled_applicationDidEnterBackground:(UIApplication *)application {
     NSLog(@"LocationMonitor DidEnterBackground");
  
-   NSUserDefaults *defaults = [self getUserDefault];
+   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 			[defaults setObject: @"Foreground" forKey:@"false"];
 			BOOL success = [defaults synchronize];
  
-    [self requestMoreBackgroundExecutionTime];
+    //[self requestMoreBackgroundExecutionTime];
 
     
 }
