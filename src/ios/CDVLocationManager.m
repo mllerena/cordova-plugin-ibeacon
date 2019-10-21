@@ -213,19 +213,21 @@
             NSMutableDictionary* dict = [[NSMutableDictionary alloc]init];
             [dict setObject:[self jsCallbackNameForSelector :_cmd] forKey:@"eventType"];
             [dict setObject:[self mapOfRegion:region] forKey:@"region"];
-         
-            /*
+		
+            [dict setObject:[self appStateAsString:state] forKey:@"appState"];
+		
             if (state == UIApplicationStateActive) {
               [dict setObject:beaconsMapsArray forKey:@"beacons"];
-            }
-            */
-         
+            }		    
+            
+            /*	
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		          NSString* foreground = [defaults stringForKey:@"Foreground"];
          
             if ([foreground isEqualToString:@"true"]) {
               [dict setObject:beaconsMapsArray forKey:@"beacons"];
             }
+	    */
          
             //[dict setObject:beaconsMapsArray forKey:@"beacons"];
 
@@ -936,6 +938,13 @@
 
 - (BOOL) isBelowIos7 {
     return [[[UIDevice currentDevice] systemVersion] floatValue] < 7.0;
+}
+
+- (NSString *)appStateAsString: (UIApplicationState) appState {
+    NSDictionary *states = @{@(UIApplicationStateActive): @"UIApplicationStateActive",
+                             @(UIApplicationStateInactive): @"UIApplicationStateInactive",
+                             @(UIApplicationStateBackground): @"UIApplicationStateBackground"};
+    return [states objectForKey:[NSNumber numberWithInteger:appState]];
 }
 
 - (NSString *)regionStateAsString: (CLRegionState) regionState {
