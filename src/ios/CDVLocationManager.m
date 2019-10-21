@@ -220,7 +220,14 @@
             }
             */
          
-            [dict setObject:beaconsMapsArray forKey:@"beacons"];
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		          NSString* foreground = [defaults stringForKey:@"Foreground"];
+         
+            if ([foreground isEqualToString:@"true"]) {
+              [dict setObject:beaconsMapsArray forKey:@"beacons"];
+            }
+         
+            //[dict setObject:beaconsMapsArray forKey:@"beacons"];
 
             
             CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict];
