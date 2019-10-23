@@ -632,7 +632,10 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
                             }
                             data.put("eventType", "didRangeBeaconsInRegion");
                             data.put("region", mapOfRegion(region));
-                               
+				
+				
+			    //Build.VERSION.SDK_INT
+                            data.put("versionAndroid", Build.VERSION.SDK_INT);   
 				
                             if(applicationIsRunning(getApplicationContext())){
                                 data.put("beacons", beaconData);
@@ -640,7 +643,7 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
 				
 			    //data.put("beacons", beaconData);
                             
-                            debugLog("didRangeBeacons: " + data.toString());
+                            debugLog("didRangeBeaconsInRegion: " + data.toString());
 
                             //send and keep reference to callback
                             PluginResult result = new PluginResult(PluginResult.Status.OK, data);
