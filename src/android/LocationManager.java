@@ -627,19 +627,22 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
                         try {
                             JSONObject data = new JSONObject();
                             JSONArray beaconData = new JSONArray();
-                            for (Beacon beacon : iBeacons) {
-                                beaconData.put(mapOfBeacon(beacon));
-                            }
+				
+			    if(applicationIsRunning(getApplicationContext())){
+				    for (Beacon beacon : iBeacons) {
+					beaconData.put(mapOfBeacon(beacon));
+				    }
+			    }
                             data.put("eventType", "didRangeBeaconsInRegion");
                             data.put("region", mapOfRegion(region));
 				
 				
 			    //Build.VERSION.SDK_INT
-                            data.put("versionAndroid", Build.VERSION.SDK_INT);   
+                            data.put("version", ""+Build.VERSION.SDK_INT);   
 				
-                            if(applicationIsRunning(getApplicationContext())){
+                            //if(applicationIsRunning(getApplicationContext())){
                                 data.put("beacons", beaconData);
-                            }
+                            //}
 				
 			    //data.put("beacons", beaconData);
                             
