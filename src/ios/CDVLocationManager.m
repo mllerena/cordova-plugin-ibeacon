@@ -194,15 +194,21 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
-    
+	
+	
+    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+	
     if (manager != self.locationManager) return;
     NSMutableArray* beaconsMapsArray = [NSMutableArray new];
     for (CLBeacon* beacon in beacons) {
-        NSDictionary* dictOfBeacon = [self mapOfBeacon:beacon];
-        [beaconsMapsArray addObject:dictOfBeacon];
+	if (state == UIApplicationStateActive) {
+         NSDictionary* dictOfBeacon = [self mapOfBeacon:beacon];
+         [beaconsMapsArray addObject:dictOfBeacon];
+	}
+        
     }
  
-    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+    
     
     //[self.queue addOperationWithBlock:^{
         
@@ -216,20 +222,7 @@
 		
             [dict setObject:[self appStateAsString:state] forKey:@"appState"];
 		
-            if (state == UIApplicationStateActive) {
-              [dict setObject:beaconsMapsArray forKey:@"beacons"];
-            }		    
-            
-            /*	
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		          NSString* foreground = [defaults stringForKey:@"Foreground"];
-         
-            if ([foreground isEqualToString:@"true"]) {
-              [dict setObject:beaconsMapsArray forKey:@"beacons"];
-            }
-	    */
-         
-            //[dict setObject:beaconsMapsArray forKey:@"beacons"];
+            [dict setObject:beaconsMapsArray forKey:@"beacons"];
 
             
             CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict];
