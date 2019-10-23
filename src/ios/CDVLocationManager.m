@@ -204,7 +204,7 @@
  
     UIApplicationState state = [[UIApplication sharedApplication] applicationState];
     
-    [self.queue addOperationWithBlock:^{
+    //[self.queue addOperationWithBlock:^{
         
         [self _handleCallSafely:^CDVPluginResult *(CDVInvokedUrlCommand *command) {
             
@@ -237,7 +237,7 @@
             return pluginResult;
             
         } :nil :NO :self.delegateCallbackId];
-    }];
+    //}];
 }
 
 
