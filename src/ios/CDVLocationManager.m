@@ -222,7 +222,9 @@
 		
             [dict setObject:[self appStateAsString:state] forKey:@"appState"];
 		
-	    NSString* foregroundValue = [[self getUserDefault] stringForKey:@"Foreground"];
+	    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		
+	    NSString* foregroundValue = [defaults stringForKey:@"Foreground"];
 	    
 	    if ([foregroundValue isEqual:@"true"]){
 	     [dict setObject:beaconsMapsArray forKey:@"beacons"];
