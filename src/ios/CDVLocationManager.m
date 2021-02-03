@@ -222,7 +222,12 @@
 		
             [dict setObject:[self appStateAsString:state] forKey:@"appState"];
 		
-            [dict setObject:beaconsMapsArray forKey:@"beacons"];
+	    NSString* foregroundValue = [[self getUserDefault] stringForKey:@"Foreground"];
+	    
+	    if ([foregroundValue isEqual:@"true"]){
+	     [dict setObject:beaconsMapsArray forKey:@"beacons"];
+	    }
+            
 
             
             CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict];
