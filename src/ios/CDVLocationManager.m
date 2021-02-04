@@ -225,10 +225,12 @@
 	    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		
 	    NSString* foregroundValue = [defaults stringForKey:@"Foreground"];
+		
+	    [[self getLogger] debugLog:@"didRangeBeacons foregroundValue: %@", foregroundValue];
 	    
-	    if ([foregroundValue isEqual:@"true"]){
+	    //if ([foregroundValue isEqualToString:@"true"]){
 	     [dict setObject:beaconsMapsArray forKey:@"beacons"];
-	    }
+	    //}
             
 
             
