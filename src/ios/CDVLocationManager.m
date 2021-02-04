@@ -227,6 +227,8 @@
 	    NSString* foregroundValue = [defaults stringForKey:@"Foreground"];
 		
 	    [[self getLogger] debugLog:@"didRangeBeacons foregroundValue: %@", foregroundValue];
+		
+	    [[self getLogger] debugLog:@"didRangeBeacons beaconsMapsArray: %@", beaconsMapsArray];
 	    
 	    //if ([foregroundValue isEqualToString:@"true"]){
 	     [dict setObject:beaconsMapsArray forKey:@"beacons"];
